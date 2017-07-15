@@ -1,0 +1,17 @@
+﻿<UserControl
+    x:Class="DownloadManager.ComplexListItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DownloadManager"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls ="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal" x:Name="layoutRoot" HorizontalAlignment="{Binding Path=HorizontalAlignment}" MaxHeight="100">
+        <controls:RoundImageEx Height="{Binding Path=layoutRoot.Height}" Width="{Binding Path=Height}" CornerRadius="999" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="http://dl2.iteye.com/upload/attachment/0110/0833/7be2e1f3-c60a-3d85-b265-8856896db6f1.png"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+            <TextBlock x:Name="title" Text="{Binding Path=Title,Mode=TwoWay}" />
+            <TextBlock x:Name="describe" Text="{Binding Path=Describe,Mode=TwoWay}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
