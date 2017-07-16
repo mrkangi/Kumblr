@@ -6,31 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
+    xmlns:xp="using:XP"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
-    <Grid Background="#FFFFFF" Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <local:ComplexListItem Title="HelloWorld" Height="60" Grid.Row="0"></local:ComplexListItem>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <wrapPanel:WrapPanel x:Name="images" Visibility="Collapsed">
-                </wrapPanel:WrapPanel>
-                <StackPanel x:Name="videoPanel" Visibility="Collapsed">
-                    <MediaElement  DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+    <xp:Shadow Z_Depth="1" Margin="5">
+        <Grid Background="#FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <local:ComplexListItem Title="HelloWorld" Height="60" Grid.Row="0"></local:ComplexListItem>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <wrapPanel:WrapPanel x:Name="images" Visibility="Collapsed">
+                    </wrapPanel:WrapPanel>
+                    <StackPanel x:Name="videoPanel" Visibility="Collapsed">
+                        <MediaElement  DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
 
-                    </MediaElement>
-                </StackPanel>
-                <TextBlock x:Name="message">
+                        </MediaElement>
+                    </StackPanel>
+                    <TextBlock x:Name="message">
                     HelloWorld
-                </TextBlock>
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
+                <Button Content="*"></Button>
             </StackPanel>
-        </ScrollViewer>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
-            <Button Content="*"></Button>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </xp:Shadow>
 </UserControl>

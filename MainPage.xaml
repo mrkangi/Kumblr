@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     mc:Ignorable="d">
-
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
                CompactPaneLength="50" OpenPaneLength="150">
         <SplitView.Pane>
@@ -32,6 +31,7 @@
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
+
             <!--<ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="mainList">
                 <ListView.Items>
                     <ListViewItem>
@@ -56,6 +56,7 @@
                     </local:MediaPanelControl>
                 </wrapPanel:WrapPanel>
             </ScrollViewer>
+
         </SplitView.Content>
     </SplitView>
 </Page>

@@ -19,6 +19,11 @@ using Windows.UI.Xaml.Navigation;
 using DontPanic.TumblrSharp;
 using DontPanic.TumblrSharp.Client;
 using DontPanic.TumblrSharp.OAuth;
+using System.Net.Sockets;
+using Windows.Networking.Sockets;
+using Windows.Storage.Streams;
+using System.Text;
+using System.Net.Http;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -29,9 +34,40 @@ namespace DownloadManager
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        int port = 8000;
         public MainPage()
         {
             this.InitializeComponent();
+
+            listener.Control.KeepAlive = true;
+            listener.ConnectionReceived += async (s, args) =>
+            {
+                Debug.WriteLine("Got connection");
+                using (var dr = new DataReader(args.Socket.InputStream))
+                {
+                    dr.InputStreamOptions = InputStreamOptions.Partial;
+
+                    await dr.LoadAsync(12);
+                    var input = dr.ReadString(12);
+
+                    Debug.WriteLine("received: " + input);
+                }
+
+                using (var dw = new DataWriter(args.Socket.OutputStream))
+                {
+                    dw.WriteString(@"HTTP/1.1 200 OK
+Cache-Control: private
+Connection: Keep-Alive
+Content-Length: 19
+Content-Type: text/html; charset=UTF-8
+Server: kumblr
+
+<h1>HelloWorld</h1>
+");
+                    await dw.StoreAsync();
+                    dw.DetachStream();
+                }
+            };
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -83,44 +119,44 @@ namespace DownloadManager
 
         private async void MenuButton1_Click(object sender, RoutedEventArgs e)
         {
-            var user = await Tumblr.Client.GetUserInfoAsync();
+            //var user = await Tumblr.Client.GetUserInfoAsync();
 
 
-            var following = await Tumblr.Client.GetFollowingAsync();
+            //var following = await Tumblr.Client.GetFollowingAsync();
 
-            var dashboard = await Tumblr.Client.GetDashboardPostsAsync();
+            //var dashboard = await Tumblr.Client.GetDashboardPostsAsync();
 
-            foreach (var item in dashboard)
-            {
-                if (item.Type == PostType.Video)
-                {
-                    var v = new MediaPanelControl()
-                    {
-                        Type = Literals.MediaType.VIDEO,
-                        Width = 300,
-                        Height = 400,
-                    };
-                    v.ShowVideo((item as VideoPost)?.VideoUrl);
-                    contentRoot.Children.Add(v);
-                }
+            //foreach (var item in dashboard)
+            //{
+            //    if (item.Type == PostType.Video)
+            //    {
+            //        var v = new MediaPanelControl()
+            //        {
+            //            Type = Literals.MediaType.VIDEO,
+            //            Width = 300,
+            //            Height = 400,
+            //        };
+            //        v.ShowVideo((item as VideoPost)?.VideoUrl);
+            //        contentRoot.Children.Add(v);
+            //    }
 
-                else if (item.Type == PostType.Photo)
-                {
-                    var img = new MediaPanelControl()
-                    {
-                        Type = Literals.MediaType.IMAGE,
-                        Width = 300,
-                        Height = 400,
-                    };
-                    var images = (item as PhotoPost).PhotoSet;
-                    foreach (var image in images)
-                    {
-                        img.AddImage(image.OriginalSize.ImageUrl);
-                    }
-                    contentRoot.Children.Add(img);
+            //    else if (item.Type == PostType.Photo)
+            //    {
+            //        var img = new MediaPanelControl()
+            //        {
+            //            Type = Literals.MediaType.IMAGE,
+            //            Width = 300,
+            //            Height = 400,
+            //        };
+            //        var images = (item as PhotoPost).PhotoSet;
+            //        foreach (var image in images)
+            //        {
+            //            img.AddImage(image.OriginalSize.ImageUrl);
+            //        }
+            //        contentRoot.Children.Add(img);
 
-                }
-            }
+            //    }
+            //}
             //OAuthClient oauthClient = new OAuthClient(
             //new DontPanic.TumblrSharp.HmacSha1HashProvider(),
             //Tumblr.CONSUMER_KEY,
@@ -142,9 +178,22 @@ namespace DownloadManager
             //web.FullSizeDesired = true;
             //web.IsPrimaryButtonEnabled = true;
             //await web.ShowAsync();
+            ContentDialog web = new ContentDialog();
+            await listener.BindServiceNameAsync(port.ToString());
+            Debug.WriteLine("Bound to port: " + port.ToString());
+            HttpClient hc = new HttpClient();
+            //var str = await hc.GetStringAsync("");
 
+            WebView webView = new WebView(WebViewExecutionMode.SeparateThread);
+            webView.Source = new Uri("http://127.0.0.1:8000");
 
+            web.Content = webView;
+            web.FullSizeDesired = true;
+            web.IsSecondaryButtonEnabled = true;
+            web.IsPrimaryButtonEnabled = true;
+            await web.ShowAsync();
         }
+        static StreamSocketListener listener = new StreamSocketListener();
     }
 
 
