@@ -65,6 +65,9 @@ namespace DownloadManager
         {
             var urlAttr = (UrlAttribute)typeof(T).GetTypeInfo().GetCustomAttribute(typeof(UrlAttribute));
             HttpClient client = new HttpClient();
+
+            
+
             string response = null;
             string url = $"{ReplacePlaceholder(urlAttr.Url, urlSegPlaceholder)}?{BuildQueryString(queryString)}";
             switch (urlAttr.Method)

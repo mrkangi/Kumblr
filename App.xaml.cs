@@ -31,16 +31,55 @@ namespace DownloadManager
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+        protected override async void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                // TODO: Handle URI activation
+                // The received URI is eventArgs.Uri.AbsoluteUri
 
+                await new Windows.UI.Popups.MessageDialog(args.PreviousExecutionState.ToString()).ShowAsync();
+
+                Frame rootFrame = Window.Current.Content as Frame;
+                if (rootFrame == null)
+                {
+                    // 创建要充当导航上下文的框架，并导航到第一页
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: 从之前挂起的应用程序加载状态
+                    }
+
+                    // 将框架放在当前窗口中
+                    Window.Current.Content = rootFrame;
+
+                    if (rootFrame.Content == null)
+                    {
+                        // 当导航堆栈尚未还原时，导航到第一页，
+                        // 并通过将所需信息作为导航参数传入来配置
+                        // 参数
+                        await new Windows.UI.Popups.MessageDialog("3").ShowAsync();
+                        rootFrame.Navigate(typeof(MainPage));
+                    }
+                    // 确保当前窗口处于活动状态
+                    Window.Current.Activate();
+                }
+                await new Windows.UI.Popups.MessageDialog(args.PreviousExecutionState.ToString()).ShowAsync();
+            }
+        }
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            await new Windows.UI.Popups.MessageDialog("1").ShowAsync();
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
@@ -58,7 +97,7 @@ namespace DownloadManager
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
             }
-
+            await new Windows.UI.Popups.MessageDialog("2").ShowAsync();
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -66,6 +105,7 @@ namespace DownloadManager
                     // 当导航堆栈尚未还原时，导航到第一页，
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
+                    await new Windows.UI.Popups.MessageDialog("3").ShowAsync();
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // 确保当前窗口处于活动状态
@@ -90,8 +130,10 @@ namespace DownloadManager
         /// </summary>
         /// <param name="sender">挂起的请求的源。</param>
         /// <param name="e">有关挂起请求的详细信息。</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            await new Windows.UI.Popups.MessageDialog("1").ShowAsync();
+
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
