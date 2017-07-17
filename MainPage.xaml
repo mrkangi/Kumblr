@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
+    xmlns:xp="using:XP"
     mc:Ignorable="d">
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
                CompactPaneLength="50" OpenPaneLength="150">
@@ -46,17 +47,22 @@
                     </ListViewItem>
                 </ListView.Items>
             </ListView>-->
-            <ScrollViewer>
-                <wrapPanel:WrapPanel x:Name="contentRoot" Background="#EEEEEE">
-                    <local:ComplexListItem MaxWidth="200" MaxHeight="250" HorizontalAlignment="Stretch" Title="HelloWorld" Describe="this is a describe" Holding="ComplexListItem_Holding" Tapped="ComplexListItem_Tapped" >
+            <Grid>
+                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{x:Bind testData}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="local:TestModel">
+                            <Grid>
+                                <local:MediaPanelControl Poster="{x:Bind Value}" OnImageDoubleTapped="MediaPanelControl_OnImageDoubleTapped" Width="300" Height="400" HorizontalAlignment="Stretch">
 
-                    </local:ComplexListItem>
-                    <local:MediaPanelControl  Width="300" Height="400" HorizontalAlignment="Stretch">
+                                </local:MediaPanelControl>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <Grid Background="#99000000" x:Name="contentContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
 
-                    </local:MediaPanelControl>
-                </wrapPanel:WrapPanel>
-            </ScrollViewer>
-
+                </Grid>
+            </Grid>
         </SplitView.Content>
     </SplitView>
 </Page>

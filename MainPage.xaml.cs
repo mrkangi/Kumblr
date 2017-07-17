@@ -38,7 +38,7 @@ namespace DownloadManager
         public MainPage()
         {
             this.InitializeComponent();
-
+            //scroller.LayoutUpdated += Scroller_LayoutUpdated;
             listener.Control.KeepAlive = true;
             listener.ConnectionReceived += async (s, args) =>
             {
@@ -92,6 +92,7 @@ Server: kumblr
                 Width = 300,
                 Height = 400,
             };
+            item.OnImageDoubleTapped += MediaPanelControl_OnImageDoubleTapped;
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-HamburgerMenu.gif");
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
@@ -99,7 +100,7 @@ Server: kumblr
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-HamburgerMenu.gif");
             item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
-            contentRoot.Children.Add(item);
+            contentRoot.Items.Add(item);
             item = new MediaPanelControl()
             {
                 Type = Literals.MediaType.VIDEO,
@@ -107,7 +108,7 @@ Server: kumblr
                 Height = 400,
             };
             item.ShowVideo("http://xz.duoyi.com/videos/employee_interview.mp4");
-            contentRoot.Children.Add(item);
+            contentRoot.Items.Add(item);
             Debug.WriteLine("helloworld");
         }
 
@@ -192,24 +193,36 @@ Server: kumblr
             web.IsSecondaryButtonEnabled = true;
             web.IsPrimaryButtonEnabled = true;
             await web.ShowAsync();
+
+
         }
-        static StreamSocketListener listener = new StreamSocketListener();
-    }
 
+        PostIncrementalLoadingCollection postData;
 
-    public static class Tumblr
-    {
-        public static string Blog { get; set; }
-        public static TumblrClient Client;
-        public const string CONSUMER_KEY = "xx";
-        public const string CONSUMER_SECRET = "xx";
-        const string OAUTH_TOKEN = "xx";
-        const string OAUTH_TOKEN_SECRET = "xx";
+        TestIncrementalLoadingCollection testData = new TestIncrementalLoadingCollection();
 
-        static Tumblr()
+        private void Scroller_LayoutUpdated(object sender, object e)
         {
-            // create our client
-            Client = new TumblrClientFactory().Create<TumblrClient>(CONSUMER_KEY, CONSUMER_SECRET, new DontPanic.TumblrSharp.OAuth.Token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET));
+        }
+
+        static StreamSocketListener listener = new StreamSocketListener();
+
+        private void MediaPanelControl_OnImageDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var img = sender as Image;
+            contentContainer.Children.Add(new Image()
+            {
+                Source = img.Source,
+            });
+            contentContainer.Tapped += ContentContainer_Tapped;
+            contentContainer.Visibility = Visibility.Visible;
+        }
+
+        private void ContentContainer_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var grid = (sender as Grid);
+            grid.Visibility = Visibility.Collapsed;
+            grid.Children.Clear();
         }
     }
 }
