@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,15 +24,20 @@ namespace DownloadManager
 {
     public sealed partial class MediaPanelControl : UserControl
     {
+        public event DoubleTappedEventHandler OnImageDoubleTapped;
+
+
         public void AddImage(string src)
         {
             var bmp = new BitmapImage(new Uri(src)) { AutoPlay = true };
 
-            images.Children.Add(
-                new Image()
-                {
-                    Source = bmp,
-                });
+            var img = new Image()
+            {
+                Source = bmp,
+            };
+            img.IsDoubleTapEnabled = true;
+            img.DoubleTapped += OnImageDoubleTapped;
+            images.Children.Add(img);
         }
 
         public void ShowVideo(string src)
@@ -73,6 +79,7 @@ namespace DownloadManager
         public MediaPanelControl()
         {
             this.InitializeComponent();
+            (this.Content as FrameworkElement).DataContext = this;
             video.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
         }
 
@@ -145,5 +152,28 @@ namespace DownloadManager
             video.IsFullWindow = !video.IsFullWindow;
 
         }
+
+
+
+
+        public string Poster
+        {
+            get { return (string)GetValue(PosterProperty); }
+            set { SetValue(PosterProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty PosterProperty =
+      DependencyProperty.Register("Poster", typeof(string),
+        typeof(ComplexListItem), new PropertyMetadata(null));
+
+        public string PosterDescribe
+        {
+            get { return (string)GetValue(PosterDescribeProperty); }
+            set { SetValue(PosterDescribeProperty, value); }
+        }
+        public static readonly DependencyProperty PosterDescribeProperty =
+      DependencyProperty.Register("PosterDescribe", typeof(string),
+        typeof(ComplexListItem), new PropertyMetadata(null));
     }
 }
