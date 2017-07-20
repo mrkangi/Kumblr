@@ -24,6 +24,7 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using System.Text;
 using System.Net.Http;
+using DownloadManager.ViewModels;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -39,36 +40,9 @@ namespace DownloadManager
         {
             this.InitializeComponent();
             //scroller.LayoutUpdated += Scroller_LayoutUpdated;
-            listener.Control.KeepAlive = true;
-            listener.ConnectionReceived += async (s, args) =>
-            {
-                Debug.WriteLine("Got connection");
-                using (var dr = new DataReader(args.Socket.InputStream))
-                {
-                    dr.InputStreamOptions = InputStreamOptions.Partial;
-
-                    await dr.LoadAsync(12);
-                    var input = dr.ReadString(12);
-
-                    Debug.WriteLine("received: " + input);
-                }
-
-                using (var dw = new DataWriter(args.Socket.OutputStream))
-                {
-                    dw.WriteString(@"HTTP/1.1 200 OK
-Cache-Control: private
-Connection: Keep-Alive
-Content-Length: 19
-Content-Type: text/html; charset=UTF-8
-Server: kumblr
-
-<h1>HelloWorld</h1>
-");
-                    await dw.StoreAsync();
-                    dw.DetachStream();
-                }
-            };
+            this.ViewModel = ServiceLocator.Current.Get<ITestViewModel>();
         }
+        internal ITestViewModel ViewModel;
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -118,8 +92,11 @@ Server: kumblr
             await dialog.ShowAsync();
         }
 
-        private async void MenuButton1_Click(object sender, RoutedEventArgs e)
+        private void MenuButton1_Click(object sender, RoutedEventArgs e)
         {
+            var root = Window.Current.Content as Frame;
+            root.Navigate(typeof(HelloWorld));
+
             //var user = await Tumblr.Client.GetUserInfoAsync();
 
 
@@ -179,33 +156,7 @@ Server: kumblr
             //web.FullSizeDesired = true;
             //web.IsPrimaryButtonEnabled = true;
             //await web.ShowAsync();
-            ContentDialog web = new ContentDialog();
-            await listener.BindServiceNameAsync(port.ToString());
-            Debug.WriteLine("Bound to port: " + port.ToString());
-            HttpClient hc = new HttpClient();
-            //var str = await hc.GetStringAsync("");
-
-            WebView webView = new WebView(WebViewExecutionMode.SeparateThread);
-            webView.Source = new Uri("http://127.0.0.1:8000");
-
-            web.Content = webView;
-            web.FullSizeDesired = true;
-            web.IsSecondaryButtonEnabled = true;
-            web.IsPrimaryButtonEnabled = true;
-            await web.ShowAsync();
-
-
         }
-
-        PostIncrementalLoadingCollection postData;
-
-        TestIncrementalLoadingCollection testData = new TestIncrementalLoadingCollection();
-
-        private void Scroller_LayoutUpdated(object sender, object e)
-        {
-        }
-
-        static StreamSocketListener listener = new StreamSocketListener();
 
         private void MediaPanelControl_OnImageDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {

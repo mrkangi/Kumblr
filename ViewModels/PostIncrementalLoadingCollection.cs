@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using DownloadManager.Services;
 
 namespace DownloadManager
 {
     class PostIncrementalLoadingCollection : IncrementalLoadingBase<BasePost>
     {
+        ITumblrService tumblr;
+        public PostIncrementalLoadingCollection(ITumblrService tumblr)
+        {
+            this.tumblr = tumblr;
+        }
+
         protected override bool HasMoreItemsOverride()
         {
             return true;
@@ -19,7 +26,7 @@ namespace DownloadManager
 
         protected override async Task<IList<BasePost>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
         {
-            return await Tumblr.Client.GetDashboardPostsAsync();
+            return await tumblr.Client.GetDashboardPostsAsync();
         }
     }
 

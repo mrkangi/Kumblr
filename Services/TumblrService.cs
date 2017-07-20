@@ -6,20 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DownloadManager
+namespace DownloadManager.Services
 {
-    public static class Tumblr
+    class TumblrService : ITumblrService
     {
-        public static string Blog { get; set; }
-        public static TumblrClient Client;
-        public const string CONSUMER_KEY = "xx";
-        public const string CONSUMER_SECRET = "xx";
+        public TumblrClient Client { get; }
+        const string CONSUMER_KEY = "xx";
+        const string CONSUMER_SECRET = "xx";
         const string OAUTH_TOKEN = "xx";
         const string OAUTH_TOKEN_SECRET = "xx";
 
-        static Tumblr()
+        public TumblrService()
         {
-            // create our client
             Client = new TumblrClientFactory().Create<TumblrClient>(CONSUMER_KEY, CONSUMER_SECRET, new DontPanic.TumblrSharp.OAuth.Token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET));
         }
     }

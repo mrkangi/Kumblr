@@ -48,7 +48,7 @@
                 </ListView.Items>
             </ListView>-->
             <Grid>
-                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{x:Bind testData}">
+                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{x:Bind ViewModel.TestData}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="local:TestModel">
                             <Grid>
