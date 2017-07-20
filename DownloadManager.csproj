@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Attributes\UrlAttribute.cs" />
     <Compile Include="Base\ObservableObject.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Services\ISocketDataService.cs" />
     <Compile Include="Services\ITestService.cs" />
@@ -104,8 +105,12 @@
     <Compile Include="Services\SocketDataService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\TumblrService.cs" />
+    <Compile Include="ViewModels\IMainPageViewModel.cs" />
+    <Compile Include="ViewModels\IMediaPanelViewModel.cs" />
+    <Compile Include="ViewModels\IPostIncrementalLoadingCollection.cs" />
     <Compile Include="ViewModels\ITestViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\MediaPanelViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="Views\ComplexListItem.xaml.cs">
       <DependentUpon>ComplexListItem.xaml</DependentUpon>

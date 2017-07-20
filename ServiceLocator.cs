@@ -19,7 +19,13 @@ namespace DownloadManager
         {
             collection.TryAddSingleton<ISocketDataService, SocketDataService>();
             collection.TryAddSingleton<ITumblrService, TumblrService>();
-            collection.TryAddSingleton<ITestViewModel, TestViewModel>();
+            collection.TryAddTransient<IMediaPanelViewModel, TestViewModel>();
+            collection.TryAddTransient<IMainPageViewModel, MainPageViewModel>();
+            //collection.TryAddTransient<IMediaPanelViewModel, MediaPanelViewModel>();
+            //collection.TryAddTransient<IPostIncrementalLoadingCollection, PostIncrementalLoadingCollection>();
+            collection.TryAddTransient<IPostIncrementalLoadingCollection, TestIncrementalLoadingCollection>();
+
+
             svp = collection.BuildServiceProvider();
         }
 

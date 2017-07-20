@@ -40,9 +40,9 @@ namespace DownloadManager
         {
             this.InitializeComponent();
             //scroller.LayoutUpdated += Scroller_LayoutUpdated;
-            this.ViewModel = ServiceLocator.Current.Get<ITestViewModel>();
+            contentRoot.ItemsSource = ServiceLocator.Current.Get<IMainPageViewModel>().PostData;
         }
-        internal ITestViewModel ViewModel;
+        internal IMainPageViewModel ViewModel;
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {

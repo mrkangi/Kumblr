@@ -8,7 +8,12 @@
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:xp="using:XP"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d">
+    xmlns:model ="using:DownloadManager.ViewModels"
+    xmlns:converter="using:DownloadManager.Converter"
+    mc:Ignorable="d" >
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></converter:BoolToVisibilityConverter>
+    </UserControl.Resources>
     <xp:Shadow Z_Depth="1" Margin="5">
         <Grid Background="#FFFFFF">
             <Grid.RowDefinitions>
@@ -16,17 +21,17 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <local:ComplexListItem Title="{x:Bind Poster,Mode=TwoWay}" Describe="{x:Bind PosterDescribe,Mode=TwoWay}" Height="60" Grid.Row="0"></local:ComplexListItem>
+            <local:ComplexListItem Title="{Binding Title}" Describe="{Binding Describ}" Height="60" Grid.Row="0"></local:ComplexListItem>
             <!--<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 
             </ScrollViewer>-->
             <GridView Grid.Row="1" IsItemClickEnabled="False" SelectionMode="None">
                 <GridViewItem>
                     <StackPanel>
-                        <wrapPanel:WrapPanel x:Name="images" Visibility="Collapsed">
+                        <wrapPanel:WrapPanel x:Name="images" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
                         </wrapPanel:WrapPanel>
-                        <StackPanel x:Name="videoPanel" Visibility="Collapsed">
-                            <MediaElement  DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+                        <StackPanel x:Name="videoPanel" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
+                            <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
 
                             </MediaElement>
                         </StackPanel>

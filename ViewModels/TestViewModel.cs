@@ -7,11 +7,22 @@ using System.Threading.Tasks;
 
 namespace DownloadManager.ViewModels
 {
-    class TestViewModel : ObservableObject, ITestViewModel
+    class TestViewModel : ObservableObject, IMediaPanelViewModel
     {
-        public TestViewModel()
-        {
-        }
-        public TestIncrementalLoadingCollection TestData { get; } = new TestIncrementalLoadingCollection();
+        public string Title => "This is Title";
+
+        public string Describ => "This is Describ";
+
+        public string Avator => null;
+
+        public bool IsImage => false;
+
+        public bool IsVideo => true;
+
+        public List<string> Images => null;
+
+        public string VideoUrl => "http://xz.duoyi.com/videos/2017_campus_brand_ten.mp4";
+
+        public string Content => null;
     }
 }

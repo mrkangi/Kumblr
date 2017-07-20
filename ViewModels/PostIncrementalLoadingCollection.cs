@@ -9,9 +9,9 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using DownloadManager.Services;
 
-namespace DownloadManager
+namespace DownloadManager.ViewModels
 {
-    class PostIncrementalLoadingCollection : IncrementalLoadingBase<BasePost>
+    class PostIncrementalLoadingCollection : IncrementalLoadingBase<IMediaPanelViewModel>, IPostIncrementalLoadingCollection
     {
         ITumblrService tumblr;
         public PostIncrementalLoadingCollection(ITumblrService tumblr)
@@ -24,9 +24,9 @@ namespace DownloadManager
             return true;
         }
 
-        protected override async Task<IList<BasePost>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
+        protected override async Task<IList<IMediaPanelViewModel>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
         {
-            return await tumblr.Client.GetDashboardPostsAsync();
+            return (await tumblr.Client.GetDashboardPostsAsync()).Select(item => (IMediaPanelViewModel)new MediaPanelViewModel(item)).ToList();
         }
     }
 
@@ -35,7 +35,7 @@ namespace DownloadManager
         public string Value { get; set; }
     }
 
-    class TestIncrementalLoadingCollection : IncrementalLoadingBase<TestModel>
+    class TestIncrementalLoadingCollection : IncrementalLoadingBase<IMediaPanelViewModel>, IPostIncrementalLoadingCollection
     {
         HttpClient client = new HttpClient();
 
@@ -44,9 +44,9 @@ namespace DownloadManager
             return true;
         }
 
-        protected override async Task<IList<TestModel>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
+        protected override async Task<IList<IMediaPanelViewModel>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
         {
-            var values = JArray.Parse(await client.GetStringAsync("http://localhost:57239/api/values")).Values<string>().Select(item => new TestModel() { Value = item }).ToList();
+            var values = JArray.Parse(await client.GetStringAsync("http://localhost:57239/api/values")).Values<string>().Select(item => (IMediaPanelViewModel)new TestViewModel() { }).ToList();
             return values;
         }
     }

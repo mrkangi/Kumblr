@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
+    xmlns:model="using:DownloadManager.ViewModels"
     xmlns:xp="using:XP"
     mc:Ignorable="d">
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
@@ -48,11 +49,11 @@
                 </ListView.Items>
             </ListView>-->
             <Grid>
-                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{x:Bind ViewModel.TestData}">
+                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding}">
                     <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="local:TestModel">
+                        <DataTemplate>
                             <Grid>
-                                <local:MediaPanelControl Poster="{x:Bind Value}" OnImageDoubleTapped="MediaPanelControl_OnImageDoubleTapped" Width="300" Height="400" HorizontalAlignment="Stretch">
+                                <local:MediaPanelControl DataContext="{Binding}" OnImageDoubleTapped="MediaPanelControl_OnImageDoubleTapped" Width="300" Height="400" HorizontalAlignment="Stretch">
 
                                 </local:MediaPanelControl>
                             </Grid>
