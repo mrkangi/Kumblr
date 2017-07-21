@@ -112,7 +112,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MediaPanelViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
-    <Compile Include="Views\ComplexListItem.xaml.cs">
+    <Compile Include="Views\UserControl\ComplexListItem.xaml.cs">
       <DependentUpon>ComplexListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Entities\EntityBase.cs" />
@@ -127,7 +127,10 @@
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MediaPanelControl.xaml.cs">
+    <Compile Include="Views\UserControl\MediaElementWithCover.xaml.cs">
+      <DependentUpon>MediaElementWithCover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControl\MediaPanelControl.xaml.cs">
       <DependentUpon>MediaPanelControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PostIncrementalLoadingCollection.cs" />
@@ -220,7 +223,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ComplexListItem.xaml">
+    <Page Include="Views\UserControl\ComplexListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,7 +235,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MediaPanelControl.xaml">
+    <Page Include="Views\UserControl\MediaElementWithCover.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControl\MediaPanelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

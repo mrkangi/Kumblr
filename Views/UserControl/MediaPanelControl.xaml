@@ -31,9 +31,13 @@
                         <wrapPanel:WrapPanel x:Name="images" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
                         </wrapPanel:WrapPanel>
                         <StackPanel x:Name="videoPanel" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
-                            <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+                            <local:MediaElementWithCover>
+                                <local:MediaElementWithCover.Media>
+                                    <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
 
-                            </MediaElement>
+                                    </MediaElement>
+                                </local:MediaElementWithCover.Media>
+                            </local:MediaElementWithCover>
                         </StackPanel>
                         <TextBlock x:Name="message">
                     HelloWorld

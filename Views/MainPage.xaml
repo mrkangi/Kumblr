@@ -49,7 +49,7 @@
                 </ListView.Items>
             </ListView>-->
             <Grid>
-                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding}">
+                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" DataContext="{Binding ViewModel.PostData}" ItemsSource="{Binding}">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

@@ -1,0 +1,12 @@
+﻿<UserControl
+    x:Class="DownloadManager.MediaElementWithCover"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DownloadManager.Views.UserControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid>
+        <Image x:Name="coverImage" Source="http://4.bp.blogspot.com/-GDhD282O1Ss/VloJyWu-J5I/AAAAAAAAAPs/GV99GWUn1Cg/s640/CustomControl3.gif" Tapped="Image_Tapped"></Image>
+    </Grid>
+</UserControl>

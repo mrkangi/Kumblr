@@ -42,7 +42,7 @@ namespace DownloadManager
             //scroller.LayoutUpdated += Scroller_LayoutUpdated;
             contentRoot.ItemsSource = ServiceLocator.Current.Get<IMainPageViewModel>().PostData;
         }
-        internal IMainPageViewModel ViewModel;
+        internal IMainPageViewModel ViewModel { get; set; }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {

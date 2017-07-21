@@ -79,7 +79,7 @@ namespace DownloadManager
         public MediaPanelControl()
         {
             this.InitializeComponent();
-            (this.Content as FrameworkElement).DataContext = this;
+            //(this.Content as FrameworkElement).DataContext = this;
             video.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
         }
 
