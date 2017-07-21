@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace DownloadManager.ViewModels
 {
@@ -24,5 +25,7 @@ namespace DownloadManager.ViewModels
         public string VideoUrl => "http://xz.duoyi.com/videos/2017_campus_brand_ten.mp4";
 
         public string Content => null;
+
+        public ImageSource VideoCover => null;
     }
 }

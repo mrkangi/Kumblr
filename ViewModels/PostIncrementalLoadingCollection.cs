@@ -14,6 +14,7 @@ namespace DownloadManager.ViewModels
     class PostIncrementalLoadingCollection : IncrementalLoadingBase<IMediaPanelViewModel>, IPostIncrementalLoadingCollection
     {
         ITumblrService tumblr;
+        int totalCount = 0;
         public PostIncrementalLoadingCollection(ITumblrService tumblr)
         {
             this.tumblr = tumblr;
@@ -26,7 +27,9 @@ namespace DownloadManager.ViewModels
 
         protected override async Task<IList<IMediaPanelViewModel>> LoadMoreItemsOverrideAsync(CancellationToken c, uint count)
         {
-            return (await tumblr.Client.GetDashboardPostsAsync()).Select(item => (IMediaPanelViewModel)new MediaPanelViewModel(item)).ToList();
+            var list = (await tumblr.Client.GetDashboardPostsAsync(startIndex: Count)).Select(item => (IMediaPanelViewModel)new MediaPanelViewModel(item)).ToList();
+            totalCount++;
+            return list;
         }
     }
 

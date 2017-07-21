@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace DownloadManager.ViewModels
 {
@@ -34,5 +36,7 @@ namespace DownloadManager.ViewModels
         public string VideoUrl => IsVideo ? (post as VideoPost)?.VideoUrl : null;
 
         public string Content => null;
+
+        public ImageSource VideoCover => IsVideo ? new BitmapImage(new Uri((post as VideoPost)?.ThumbnailUrl)) : null;
     }
 }

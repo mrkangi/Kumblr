@@ -24,15 +24,15 @@ namespace DownloadManager
             this.InitializeComponent();
         }
 
-        public string CoverUrl
+        public ImageSource CoverImage
         {
-            get { return (string)GetValue(CoverUrlProperty); }
-            set { SetValue(CoverUrlProperty, value); }
+            get { return (ImageSource)GetValue(CoverImageProperty); }
+            set { SetValue(CoverImageProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CoverUrl.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CoverUrlProperty =
-            DependencyProperty.Register("CoverUrl", typeof(string), typeof(MediaElementWithCover), null);
+        public static readonly DependencyProperty CoverImageProperty =
+            DependencyProperty.Register("CoverImage", typeof(ImageSource), typeof(MediaElementWithCover), null);
 
 
 

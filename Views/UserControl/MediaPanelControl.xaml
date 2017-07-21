@@ -31,7 +31,7 @@
                         <wrapPanel:WrapPanel x:Name="images" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
                         </wrapPanel:WrapPanel>
                         <StackPanel x:Name="videoPanel" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
-                            <local:MediaElementWithCover>
+                            <local:MediaElementWithCover CoverImage="{Binding Path=VideoCover}">
                                 <local:MediaElementWithCover.Media>
                                     <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
 
