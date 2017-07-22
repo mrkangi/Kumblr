@@ -25,26 +25,38 @@
             <!--<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 
             </ScrollViewer>-->
-            <GridView Grid.Row="1" IsItemClickEnabled="False" SelectionMode="None">
-                <GridViewItem>
-                    <StackPanel>
-                        <wrapPanel:WrapPanel x:Name="images" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
-                        </wrapPanel:WrapPanel>
-                        <StackPanel x:Name="videoPanel" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
-                            <local:MediaElementWithCover CoverImage="{Binding Path=VideoCover}">
-                                <local:MediaElementWithCover.Media>
-                                    <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+            <ScrollViewer Grid.Row="1">
+                <StackPanel>
+                    <ListView Padding="0" x:Name="images" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding Images}" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Image HorizontalAlignment="Stretch">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{Binding}">
 
-                                    </MediaElement>
-                                </local:MediaElementWithCover.Media>
-                            </local:MediaElementWithCover>
-                        </StackPanel>
-                        <TextBlock x:Name="message">
+                                        </BitmapImage>
+                                    </Image.Source>
+                                </Image>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <local:MediaElementWithCover CoverImage="{Binding Path=VideoCover}" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
+                        <local:MediaElementWithCover.Media>
+                            <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+
+                            </MediaElement>
+                        </local:MediaElementWithCover.Media>
+                    </local:MediaElementWithCover>
+                    <TextBlock Grid.Row="2" x:Name="message">
                     HelloWorld
-                        </TextBlock>
-                    </StackPanel>
-                </GridViewItem>
-            </GridView>
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
             <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
                 <Button Content="*"></Button>
             </StackPanel>

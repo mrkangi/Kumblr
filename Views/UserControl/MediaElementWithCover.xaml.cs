@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -50,10 +51,25 @@ namespace DownloadManager
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e)
         {
+
             Media.Height = coverImage.ActualHeight;
             Media.Width = coverImage.ActualWidth;
-            this.Content = Media;
+            Media.CurrentStateChanged += Media_CurrentStateChanged;
+            grid.Children.Add(Media);
             Media.Play();
+        }
+
+        private void Media_CurrentStateChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is MediaElement)
+            {
+                var m = sender as MediaElement;
+                if (m.CurrentState == MediaElementState.Paused)
+                {
+                    m.CurrentStateChanged -= Media_CurrentStateChanged;
+                    m.Play();
+                }
+            }
         }
     }
 }

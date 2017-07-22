@@ -49,43 +49,6 @@ namespace DownloadManager
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private async void ComplexListItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            HttpHeader header = await EntityFactory.ToOne<HttpHeader>(urlSegPlaceholder: new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("jsontest", "jsontest") });
-            //var item = new ListViewItem()
-            //{
-            //    Content = new ComplexListItem()
-            //    {
-            //        Title = header.Host,
-            //        Describe = header.Referer,
-            //    }
-            //};
-            var item = new MediaPanelControl()
-            {
-                Type = Literals.MediaType.IMAGE,
-                Width = 300,
-                Height = 400,
-            };
-            item.OnImageDoubleTapped += MediaPanelControl_OnImageDoubleTapped;
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-HamburgerMenu.gif");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-HamburgerMenu.gif");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-HamburgerMenu.gif");
-            item.AddImage("http://www.uwpcommunitytoolkit.com/en/master/resources/images/Controls-DropShadowPanel.png");
-            contentRoot.Items.Add(item);
-            item = new MediaPanelControl()
-            {
-                Type = Literals.MediaType.VIDEO,
-                Width = 300,
-                Height = 400,
-            };
-            item.ShowVideo("http://xz.duoyi.com/videos/employee_interview.mp4");
-            contentRoot.Items.Add(item);
-            Debug.WriteLine("helloworld");
-        }
-
         private async void ComplexListItem_Holding(object sender, HoldingRoutedEventArgs e)
         {
             MessageDialog dialog = new MessageDialog("Holding");

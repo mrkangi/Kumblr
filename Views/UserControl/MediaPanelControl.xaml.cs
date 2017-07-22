@@ -26,55 +26,10 @@ namespace DownloadManager
     {
         public event DoubleTappedEventHandler OnImageDoubleTapped;
 
-
-        public void AddImage(string src)
-        {
-            var bmp = new BitmapImage(new Uri(src)) { AutoPlay = true };
-
-            var img = new Image()
-            {
-                Source = bmp,
-            };
-            img.IsDoubleTapEnabled = true;
-            img.DoubleTapped += OnImageDoubleTapped;
-            images.Children.Add(img);
-        }
-
-        public void ShowVideo(string src)
-        {
-            video.DownloadProgressChanged += Video_DownloadProgressChanged;
-            video.Source = new Uri(src);
-        }
-
         private void Video_DownloadProgressChanged(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine(video.DownloadProgress);
         }
-
-        private MediaType type;
-        internal MediaType Type
-        {
-            get { return type; }
-            set
-            {
-                type = value;
-                switch (type)
-                {
-                    case MediaType.IMAGE:
-                        {
-                            images.Visibility = Visibility.Visible;
-                            videoPanel.Visibility = Visibility.Collapsed;
-                        }; break;
-                    case MediaType.VIDEO:
-                        {
-                            images.Visibility = Visibility.Collapsed;
-                            videoPanel.Visibility = Visibility.Visible;
-                        }; break;
-                }
-            }
-        }
-
-
 
         public MediaPanelControl()
         {

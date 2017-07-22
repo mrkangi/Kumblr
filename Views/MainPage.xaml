@@ -59,7 +59,7 @@
                                         <VisualStateGroup>
                                             <VisualState>
                                                 <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="1000"></AdaptiveTrigger>
+                                                    <AdaptiveTrigger MinWindowWidth="500"></AdaptiveTrigger>
                                                 </VisualState.StateTriggers>
                                                 <VisualState.Setters>
                                                     <Setter Target="mediaPanel.Width" Value="300"></Setter>
