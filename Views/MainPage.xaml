@@ -8,27 +8,31 @@
     xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:model="using:DownloadManager.ViewModels"
     xmlns:xp="using:XP"
+    xmlns:converter="using:DownloadManager.Converter"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converter:CalcConverter x:Key="CalcConverter"></converter:CalcConverter>
+    </Page.Resources>
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
-               CompactPaneLength="50" OpenPaneLength="150">
+               CompactPaneLength="48" OpenPaneLength="150">
 
         <SplitView.Pane>
             <StackPanel Background="Gray">
                 <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
-                    Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                    Width="{Binding Path=CompactPaneLength,ElementName=MySplitView}" Height="{Binding Path=Width,RelativeSource={RelativeSource Self}}" Background="Transparent" Click="HamburgerButton_Click"/>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE825;"
-                    Width="50" Height="50" Background="Transparent" Click="MenuButton1_Click"/>
+                    Width="{Binding Path=CompactPaneLength,ElementName=MySplitView}" Height="{Binding Path=Width,RelativeSource={RelativeSource Self}}" Background="Transparent" Click="MenuButton1_Click"/>
                     <TextBlock Text="Button 1" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;"
-                        Width="50" Height="50" Background="Transparent"/>
+                        Width="{Binding Path=CompactPaneLength,ElementName=MySplitView}" Height="{Binding Path=Width,RelativeSource={RelativeSource Self}}" Background="Transparent"/>
                     <TextBlock Text="Button 2" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton3" FontFamily="Segoe MDL2 Assets" Content="&#xE1D6;"
-                        Width="50" Height="50" Background="Transparent"/>
+                        Width="{Binding Path=CompactPaneLength,ElementName=MySplitView}" Height="{Binding Path=Width}" Background="Transparent"/>
                     <TextBlock Text="Button 3" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
@@ -59,7 +63,7 @@
                                         <VisualStateGroup>
                                             <VisualState>
                                                 <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="500"></AdaptiveTrigger>
+                                                    <AdaptiveTrigger MinWindowWidth="660"></AdaptiveTrigger>
                                                 </VisualState.StateTriggers>
                                                 <VisualState.Setters>
                                                     <Setter Target="mediaPanel.Width" Value="300"></Setter>
@@ -70,7 +74,7 @@
                                                     <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
                                                 </VisualState.StateTriggers>
                                                 <VisualState.Setters>
-                                                    <Setter Target="mediaPanel.Width" Value="500"></Setter>
+                                                    <Setter Target="mediaPanel.Width" Value="{Binding Path=Width,ElementName=contentRoot}"></Setter>
                                                 </VisualState.Setters>
                                             </VisualState>
                                         </VisualStateGroup>

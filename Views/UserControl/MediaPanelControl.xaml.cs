@@ -38,12 +38,18 @@ namespace DownloadManager
             video.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
         }
 
+        private static MediaElement PlayingMedia = null;
+
+
         private void video_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            //if (PlayingMedia != null && !PlayingMedia.Equals(video)) PlayingMedia.Pause();
+            //PlayingMedia = video;
             if (video.CurrentState == MediaElementState.Playing)
                 video.Pause();
             if (video.CurrentState == MediaElementState.Paused)
                 video.Play();
+
         }
 
         private void video_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
@@ -130,5 +136,15 @@ namespace DownloadManager
         public static readonly DependencyProperty PosterDescribeProperty =
       DependencyProperty.Register("PosterDescribe", typeof(string),
         typeof(ComplexListItem), new PropertyMetadata(null));
+
+        private void video_CurrentStateChanged(object sender, RoutedEventArgs e)
+        {
+            var media = sender as MediaElement;
+            if (media.CurrentState == MediaElementState.Playing)
+            {
+                if (PlayingMedia != null && !PlayingMedia.Equals(media)) PlayingMedia.Pause();
+                PlayingMedia = media;
+            }
+        }
     }
 }

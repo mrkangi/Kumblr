@@ -47,7 +47,7 @@
                     </ListView>
                     <local:MediaElementWithCover CoverImage="{Binding Path=VideoCover}" Visibility="{Binding Path=IsVideo,Converter={StaticResource BoolToVisibilityConverter}}">
                         <local:MediaElementWithCover.Media>
-                            <MediaElement Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
+                            <MediaElement CurrentStateChanged="video_CurrentStateChanged" Source="{Binding Path=VideoUrl}" DoubleTapped="video_DoubleTapped" ManipulationCompleted="video_ManipulationCompleted" ManipulationDelta="video_ManipulationDelta" Tapped="video_Tapped" x:Name="video" IsTapEnabled="True"  AutoPlay="False">
 
                             </MediaElement>
                         </local:MediaElementWithCover.Media>

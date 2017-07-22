@@ -31,7 +31,7 @@ namespace DownloadManager.ViewModels
 
         public bool IsVideo => post?.Type == DontPanic.TumblrSharp.PostType.Video;
 
-        public List<string> Images => IsImage ? (post as PhotoPost)?.PhotoSet.Select(item => item.AlternateSizes[item.AlternateSizes.Length - 1].ImageUrl).ToList() : new List<string>();
+        public List<string> Images => IsImage ? (post as PhotoPost)?.PhotoSet.Select(item => item.AlternateSizes[0].ImageUrl).ToList() : new List<string>();
 
         public string VideoUrl => IsVideo ? (post as VideoPost)?.VideoUrl : null;
 

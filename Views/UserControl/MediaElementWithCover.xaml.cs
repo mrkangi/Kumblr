@@ -51,7 +51,7 @@ namespace DownloadManager
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            coverImage.Tapped -= Image_Tapped;
             Media.Height = coverImage.ActualHeight;
             Media.Width = coverImage.ActualWidth;
             Media.CurrentStateChanged += Media_CurrentStateChanged;

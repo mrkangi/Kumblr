@@ -98,6 +98,7 @@
     <Compile Include="Attributes\UrlAttribute.cs" />
     <Compile Include="Base\ObservableObject.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\CalcConverter.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Services\ISocketDataService.cs" />
     <Compile Include="Services\ITestService.cs" />
