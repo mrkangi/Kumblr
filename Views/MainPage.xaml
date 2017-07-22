@@ -11,6 +11,7 @@
     mc:Ignorable="d">
     <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
                CompactPaneLength="50" OpenPaneLength="150">
+
         <SplitView.Pane>
             <StackPanel Background="Gray">
                 <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
@@ -49,14 +50,37 @@
                 </ListView.Items>
             </ListView>-->
             <Grid>
-                <GridView x:Name="contentRoot"  Background="#EEEEEE" SelectionMode="None" IsItemClickEnabled="False" DataContext="{Binding ViewModel.PostData}" ItemsSource="{Binding}">
+                <GridView x:Name="contentRoot"  Background="#EEEEEE" HorizontalContentAlignment="Center" SelectionMode="None" IsItemClickEnabled="False" DataContext="{Binding ViewModel.PostData}" ItemsSource="{Binding}">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <local:MediaPanelControl DataContext="{Binding}" OnImageDoubleTapped="MediaPanelControl_OnImageDoubleTapped" Width="300" Height="400" HorizontalAlignment="Stretch">
+                            <UserControl>
+                                <Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="1000"></AdaptiveTrigger>
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="mediaPanel.Width" Value="300"></Setter>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="mediaPanel.Width" Value="500"></Setter>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <local:MediaPanelControl x:Name="mediaPanel" DataContext="{Binding}" OnImageDoubleTapped="MediaPanelControl_OnImageDoubleTapped" Width="300" Height="400" HorizontalAlignment="Stretch">
 
-                                </local:MediaPanelControl>
-                            </Grid>
+
+                                    </local:MediaPanelControl>
+                                </Grid>
+                            </UserControl>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
@@ -65,5 +89,6 @@
                 </Grid>
             </Grid>
         </SplitView.Content>
+
     </SplitView>
 </Page>
