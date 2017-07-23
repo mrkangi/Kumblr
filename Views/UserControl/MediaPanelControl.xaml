@@ -18,6 +18,7 @@
         <Grid Background="#FFFFFF">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="2"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
@@ -25,7 +26,8 @@
             <!--<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 
             </ScrollViewer>-->
-            <ScrollViewer Grid.Row="1">
+            <ProgressBar Grid.Row="1" Height="2" Foreground="Green" Maximum="{Binding ElementName=video,Path=NaturalDuration.TimeSpan.TotalSeconds}" Value="{Binding ElementName=video,Path=Position.TotalSeconds}"></ProgressBar>
+            <ScrollViewer Grid.Row="2">
                 <StackPanel>
                     <ListView Padding="0" x:Name="images" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding Images}" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
                         <ListView.ItemContainerStyle>
@@ -57,7 +59,7 @@
                     </TextBlock>
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
                 <Button Content="*"></Button>
             </StackPanel>
         </Grid>

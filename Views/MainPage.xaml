@@ -5,7 +5,7 @@
     xmlns:local="using:DownloadManager"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wrapPanel="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:DownloadManager.ViewModels"
     xmlns:xp="using:XP"
     xmlns:converter="using:DownloadManager.Converter"
@@ -88,7 +88,7 @@
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
-                <Grid Background="#99000000" x:Name="contentContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
+                <Grid Background="#FF000000" x:Name="contentContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
 
                 </Grid>
             </Grid>
