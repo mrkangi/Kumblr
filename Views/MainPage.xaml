@@ -9,7 +9,7 @@
     xmlns:model="using:DownloadManager.ViewModels"
     xmlns:xp="using:XP"
     xmlns:converter="using:DownloadManager.Converter"
-    mc:Ignorable="d">
+    mc:Ignorable="d" NavigationCacheMode="Required">
     <Page.Resources>
         <converter:CalcConverter x:Key="CalcConverter"></converter:CalcConverter>
     </Page.Resources>
