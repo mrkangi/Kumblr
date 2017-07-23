@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI;
 
 namespace DownloadManager.ViewModels
 {
@@ -33,5 +34,9 @@ namespace DownloadManager.ViewModels
         public string Content => null;
 
         public ImageSource VideoCover => new BitmapImage(new Uri("http://images2015.cnblogs.com/blog/731716/201609/731716-20160915153252883-1855674390.gif"));
+
+        public string Type => "type";
+
+        public Color TypeColor => Colors.AliceBlue;
     }
 }

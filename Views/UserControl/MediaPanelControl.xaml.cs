@@ -108,10 +108,14 @@ namespace DownloadManager
 
         private void video_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
+
             //video.Width = Window.Current.Bounds.Width;
             //video.Height = Window.Current.Bounds.Height;
             video.IsFullWindow = !video.IsFullWindow;
-
+            if (video.CurrentState == MediaElementState.Playing)
+                video.Pause();
+            if (video.CurrentState == MediaElementState.Paused)
+                video.Play();
         }
 
 
@@ -144,6 +148,37 @@ namespace DownloadManager
             {
                 if (PlayingMedia != null && !PlayingMedia.Equals(media)) PlayingMedia.Pause();
                 PlayingMedia = media;
+            }
+        }
+
+        private void WebView_ScriptNotify(object sender, NotifyEventArgs e)
+        {
+            string result = e.Value.ToString();
+            (sender as WebView).Height = double.Parse(result);
+        }
+
+        private async void WebView_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
+        {
+            try { var rst = await (sender as WebView).InvokeScriptAsync("getHeight", null); } catch { }
+        }
+    }
+    class MyProperties
+    {
+        // "HtmlString" attached property for a WebView
+        public static readonly DependencyProperty HtmlStringProperty =
+           DependencyProperty.RegisterAttached("HtmlString", typeof(string), typeof(MyProperties), new PropertyMetadata("", OnHtmlStringChanged));
+
+        // Getter and Setter
+        public static string GetHtmlString(DependencyObject obj) { return (string)obj.GetValue(HtmlStringProperty); }
+        public static void SetHtmlString(DependencyObject obj, string value) { obj.SetValue(HtmlStringProperty, value); }
+
+        // Handler for property changes in the DataContext : set the WebView
+        private static void OnHtmlStringChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            WebView wv = d as WebView;
+            if (wv != null)
+            {
+                wv.NavigateToString((string)e.NewValue);
             }
         }
     }

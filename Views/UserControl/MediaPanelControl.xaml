@@ -22,11 +22,19 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <local:ComplexListItem Title="{Binding Title}" Describe="{Binding Describ}" Height="60" Grid.Row="0"></local:ComplexListItem>
+            <RelativePanel Grid.Row="0">
+                <local:ComplexListItem Title="{Binding Title}" Describe="{Binding Describ}" Height="60" HorizontalAlignment="Stretch"></local:ComplexListItem>
+                <Border x:Name="typeLabelBorder" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" BorderThickness="1" CornerRadius="6" Margin="5">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="{Binding TypeColor}"></SolidColorBrush>
+                    </Border.BorderBrush>
+                    <TextBlock FontSize="9" Foreground="{Binding Path=BorderBrush,ElementName=typeLabelBorder}" VerticalAlignment="Center" Margin="5 2" Text="{Binding Type}"></TextBlock>
+                </Border>
+            </RelativePanel>
             <!--<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 
             </ScrollViewer>-->
-            <ProgressBar Grid.Row="1" Height="2" Foreground="Green" Maximum="{Binding ElementName=video,Path=NaturalDuration.TimeSpan.TotalSeconds}" Value="{Binding ElementName=video,Path=Position.TotalSeconds}"></ProgressBar>
+            <ProgressBar Grid.Row="1" Height="2" Maximum="{Binding ElementName=video,Path=NaturalDuration.TimeSpan.TotalSeconds}" Value="{Binding ElementName=video,Path=Position.TotalSeconds}"></ProgressBar>
             <ScrollViewer Grid.Row="2">
                 <StackPanel>
                     <ListView Padding="0" x:Name="images" SelectionMode="None" IsItemClickEnabled="False" ItemsSource="{Binding Images}" Visibility="{Binding Path=IsImage,Converter={StaticResource BoolToVisibilityConverter}}">
@@ -37,7 +45,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Image HorizontalAlignment="Stretch">
+                                <Image HorizontalAlignment="Stretch" DoubleTapped="OnImageDoubleTapped">
                                     <Image.Source>
                                         <BitmapImage UriSource="{Binding}">
 
@@ -54,12 +62,10 @@
                             </MediaElement>
                         </local:MediaElementWithCover.Media>
                     </local:MediaElementWithCover>
-                    <TextBlock Grid.Row="2" x:Name="message">
-                    HelloWorld
-                    </TextBlock>
+                    <WebView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" ScriptNotify="WebView_ScriptNotify" DOMContentLoaded="WebView_DOMContentLoaded" local:MyProperties.HtmlString="{Binding Content}"></WebView>
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <Button Content="*"></Button>
             </StackPanel>
         </Grid>

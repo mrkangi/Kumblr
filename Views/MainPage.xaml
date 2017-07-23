@@ -88,7 +88,7 @@
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
-                <Grid Background="#FF000000" x:Name="contentContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
+                <Grid Background="#00FFFFFF" x:Name="contentContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
 
                 </Grid>
             </Grid>

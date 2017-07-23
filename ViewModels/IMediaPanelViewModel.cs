@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml.Media;
 
 namespace DownloadManager.ViewModels
@@ -16,6 +17,9 @@ namespace DownloadManager.ViewModels
         bool IsImage { get; }
 
         bool IsVideo { get; }
+
+        string Type { get; }
+        Color TypeColor { get; }
 
         List<string> Images { get; }
 
